@@ -16,10 +16,12 @@ class ContaViewSet(viewsets.ModelViewSet):
 
 class TransacaoViewSet(viewsets.ModelViewSet):
     """Exibindo todas as transacoes"""
-
+    
     queryset = Transacao.objects.all()
 
     serializer_class = TransacaoSerializer
+
+    
 
 
 class ListContaTransacoes(generics.ListAPIView):
