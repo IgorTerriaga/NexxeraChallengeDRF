@@ -1,6 +1,6 @@
 from rest_framework import viewsets, generics
-from transcation.models import Conta, Transacao
-from transcation.serializer import (
+from transaction.models import Conta, Transacao
+from transaction.serializer import (
     ContaSerializer,
     TransacaoSerializer,
     ListContaTransacoesSerializer,

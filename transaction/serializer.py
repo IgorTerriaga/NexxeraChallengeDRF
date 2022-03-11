@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from transcation.models import Conta, Transacao
+from transaction.models import Conta, Transacao
 
 class ContaSerializer(serializers.ModelSerializer):
     class Meta:

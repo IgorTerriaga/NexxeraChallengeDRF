@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from transcation.models import Conta, Transacao
+from transaction.models import Conta, Transacao
 
 
 class Contas(admin.ModelAdmin):

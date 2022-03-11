@@ -7,14 +7,14 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('transcation', '0001_initial'),
+        ('transaction', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='transacao',
             name='conta',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='transcation.conta'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='transaction.conta'),
             preserve_default=False,
         ),
     ]

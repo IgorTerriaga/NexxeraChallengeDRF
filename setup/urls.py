@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from transcation.views import  ContaViewSet, TransacaoViewSet, ListContaTransacoes
+from transaction.views import  ContaViewSet, TransacaoViewSet, ListContaTransacoes
 from rest_framework import routers
 
 router = routers.DefaultRouter()
