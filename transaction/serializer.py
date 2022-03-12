@@ -1,4 +1,6 @@
+import pprint
 from rest_framework import serializers
+from transaction.validators import validate_transaction
 
 from transaction.models import Conta, Transacao
 
@@ -12,12 +14,14 @@ class ContaSerializer(serializers.ModelSerializer):
 
 
 class TransacaoSerializer(serializers.ModelSerializer):
-    data = serializers.DateField(format("%d-%m-%Y"))
-    # tipo = serializers.SerializerMethodField()
-    # saldo_final = serializers.FloatField(read_only=True)
-    # saldo_inicial = serializers.FloatField(read_only=True)
-    # conta_saldo  = serializers.FloatField(source='conta.saldo')
 
+    data = serializers.DateField(format("%d-%m-%Y"))
+    saldo_em_conta = serializers.ReadOnlyField(source="conta.saldo")
+    titular = serializers.ReadOnlyField(source="conta.titular")
+    print("----------------------", saldo_em_conta)
+
+    # titular = serializers.ReadOnlyField(source="contas.titular")
+    # print(saldo_em_conta)
     class Meta:
         model = Transacao
         fields = [
@@ -25,34 +29,21 @@ class TransacaoSerializer(serializers.ModelSerializer):
             "discriminacao",
             "valor",
             "data",
-            "status",
             "saldo_inicial",
             "saldo_final",
             "conta",
+            "titular",
+            "saldo_em_conta",
             "tipo",
         ]
-        read_only_fields = ["saldo_inicial", "saldo_final"]
+
+        read_only_fields = ["saldo_inicial", "saldo_final", "saldo_em_conta"]
 
     def get_tipo(self, obj):
         return obj.get_tipo_display()
 
     def validate(self, data):
-        """Check data"""
-        # print(saldo)
-        # aqui precisa testar se for maior que o valor em conta tbm
-        if data["tipo"] == "D" and data["valor"] < 0:
-            raise serializers.ValidationError(
-                {
-                    "messagem": "Não é possível debitar um valor superior ao que a conta possui."
-                }
-            )
-        if data["tipo"] == "D":
-            # aqui eu pego o valor da transacao e subtraio do valor da conta
-            pass
-        elif data["tipo"] == "C":
-            # aqui eu pego o valor da transacao e adicione ao valor da conta
-            pass
-        return data
+        return validate_transaction(data)
 
 
 class ListContaTransacoesSerializer(serializers.ModelSerializer):
@@ -66,7 +57,6 @@ class ListContaTransacoesSerializer(serializers.ModelSerializer):
             "discriminacao",
             "valor",
             "data",
-            "status",
             "saldo_inicial",
             "saldo_final",
             "conta",

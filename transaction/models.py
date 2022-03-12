@@ -18,7 +18,6 @@ class Transacao(models.Model):
     discriminacao = models.CharField(max_length=100)
     valor = models.FloatField()
     data = models.DateField(format("%d-%m-%Y"))
-    status = models.CharField(max_length=12)
     saldo_inicial = models.FloatField(blank=True, null=True)
     saldo_final = models.FloatField(blank=True, null=True)
     tipo = models.CharField(max_length=1, choices=TIPO, blank=False, null=False)
