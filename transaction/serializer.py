@@ -6,7 +6,9 @@ from transaction.models import Conta, Transacao
 
 
 class ContaSerializer(serializers.ModelSerializer):
-    data_abertura = serializers.DateField(format("%d-%m-%Y"))
+    data_abertura = serializers.DateField(
+        format("%d/%m/%Y"), input_formats=["%d/%m/%Y", "iso-8601"]
+    )
 
     class Meta:
         model = Conta
@@ -15,8 +17,10 @@ class ContaSerializer(serializers.ModelSerializer):
 
 class TransacaoSerializer(serializers.ModelSerializer):
 
-    data = serializers.DateField(format("%d-%m-%Y"))
-    saldo_em_conta = serializers.ReadOnlyField(source="conta.saldo")
+    data = serializers.DateField(
+        format("%d/%m/%Y"), input_formats=["%d/%m/%Y", "iso-8601"]
+    )
+    saldo_em_conta = serializers.SerializerMethodField(source="conta.saldo")
     titular = serializers.ReadOnlyField(source="conta.titular")
     print("----------------------", saldo_em_conta)
 
@@ -29,26 +33,27 @@ class TransacaoSerializer(serializers.ModelSerializer):
             "discriminacao",
             "valor",
             "data",
-            "saldo_inicial",
-            "saldo_final",
             "conta",
             "titular",
             "saldo_em_conta",
             "tipo",
         ]
 
-        read_only_fields = ["saldo_inicial", "saldo_final", "saldo_em_conta"]
+        read_only_fields = ["saldo_inicial", "saldo_final"]
 
     def get_tipo(self, obj):
         return obj.get_tipo_display()
-
+    saldo_em_conta = serializers.ReadOnlyField(source="conta.saldo")
+    print("dddddddddddddddddddddddddddd", saldo_em_conta)
     def validate(self, data):
         return validate_transaction(data)
 
 
 class ListContaTransacoesSerializer(serializers.ModelSerializer):
     tipo = serializers.SerializerMethodField()
-    data = serializers.DateField(format("%d-%m-%Y"))
+    data = serializers.DateField(
+        format("%d/%m/%Y"), input_formats=["%d/%m/%Y", "iso-8601"]
+    )
 
     class Meta:
         model = Transacao
@@ -57,8 +62,6 @@ class ListContaTransacoesSerializer(serializers.ModelSerializer):
             "discriminacao",
             "valor",
             "data",
-            "saldo_inicial",
-            "saldo_final",
             "conta",
             "tipo",
         ]

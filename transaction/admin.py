@@ -14,7 +14,7 @@ admin.site.register(Conta, Contas)
 
 
 class Transacoes(admin.ModelAdmin):
-    list_display = ('id', 'discriminacao', 'valor','data','saldo_inicial','saldo_final','tipo', 'conta')
+    list_display = ('id', 'discriminacao', 'valor','data','tipo', 'conta')
     list_display_links=('id', 'discriminacao')
     search_fields=('id',)
 

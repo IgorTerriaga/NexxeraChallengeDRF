@@ -3,8 +3,8 @@ from django.db import models
 
 class Conta(models.Model):
     titular = models.CharField(max_length=43)
-    saldo = models.FloatField(default=0)
-    data_abertura = models.DateField("%d-%m-%Y")
+    saldo = models.FloatField(default=0, null=False)
+    data_abertura = models.DateField("%d-%m-%Y", null=False)
 
     def __str__(self):
         return self.titular
@@ -15,11 +15,9 @@ class Conta(models.Model):
 
 class Transacao(models.Model):
     TIPO = ("C", "Credito"), ("D", "Debito")
-    discriminacao = models.CharField(max_length=100)
-    valor = models.FloatField()
-    data = models.DateField(format("%d-%m-%Y"))
-    saldo_inicial = models.FloatField(blank=True, null=True)
-    saldo_final = models.FloatField(blank=True, null=True)
+    discriminacao = models.CharField(max_length=100, null=False, blank=False)
+    valor = models.FloatField(null=False)
+    data = models.DateField(format("%d-%m-%Y"), null=False, blank=False)
     tipo = models.CharField(max_length=1, choices=TIPO, blank=False, null=False)
     conta = models.ForeignKey(Conta, on_delete=models.CASCADE)
 

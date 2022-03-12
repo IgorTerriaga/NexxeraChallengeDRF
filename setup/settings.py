@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "transaction",
-    "django_filters"
+    "django_filters",
+    "drf_link_header_pagination"
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,7 @@ LANGUAGE_CODE = "pt-br"
 
 TIME_ZONE = "America/Sao_Paulo"
 
-USE_I18N = True
+#USE_I18N = True
 
 USE_TZ = True
 
@@ -121,8 +122,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'drf_link_header_pagination.LinkHeaderPagination',
+    "PAGE_SIZE": 10,
+    "DATE_FORMAT": "%d/%m/%Y",
+    "DATE_INPUT_FORMATS": '%d/%m/%Y', 
 }
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
