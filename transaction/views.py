@@ -7,6 +7,7 @@ from transaction.serializer import (
     ListContaTransacoesSerializer,
 )
 
+from django.core.exceptions import BadRequest
 from rest_framework.response import Response
 from rest_framework import status
 from django_filters import FilterSet, AllValuesFilter
@@ -87,23 +88,30 @@ class TransacaoViewSet(viewsets.ModelViewSet):
 
         request.data["saldo_inicial"] = saldo
         if request.data["tipo"] == "D":
-            request.data["saldo_final"] = saldo - float(request.data["valor"])
+            if saldo > float(request.data["valor"]):
+                request.data["saldo_final"] = saldo - float(request.data["valor"])
+            else:
+                raise BadRequest("valor maior que o saldo em conta")
+
         else:
             request.data["saldo_final"] = saldo + float(request.data["valor"])
-
-        serializer = self.get_serializer(data=request.data)
+            # Transacao.save(request.data["saldo_final"])
 
         Conta.objects.get(id=id_conta).set_saldo(request.data["saldo_final"])
-       
+
+        serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
             self.perform_create(serializer)
             serializer.save()
+        #print(request.data)
+
         context = {
             "status": status.HTTP_201_CREATED,
             "errors": serializer.errors,
             "data": serializer.data,
         }
+        print("eqwwqeq", serializer.data)
         return Response(context)
 
     def destroy(self, request, *args, **kwargs):

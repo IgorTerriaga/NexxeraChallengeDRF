@@ -21,10 +21,10 @@ class TransacaoSerializer(serializers.ModelSerializer):
     data = serializers.DateField(
         format("%d/%m/%Y"), input_formats=["%d/%m/%Y", "iso-8601"]
     )
-    
     titular = serializers.ReadOnlyField(source="conta.titular")
-   
 
+    # saldo_inicial = serializers.HiddenField(default=0) 
+    # saldo_final = serializers.HiddenField(default=0) 
     class Meta:
         model = Transacao
         fields = [
@@ -36,10 +36,14 @@ class TransacaoSerializer(serializers.ModelSerializer):
             "saldo_inicial",
             "saldo_final",
             "titular",
-            #"saldo_em_conta",
+            # "saldo_em_conta",
             "tipo",
         ]
-        #read_only_fields = ["saldo_final", "saldo_inicial"]
+
+        #read_only_fields = ('saldo_inicial', 'saldo_final',)
+        #read_only_fields = ["saldo_inicial"]
+        #extra_kwargs = {"saldo_final": {"write_only": True} }
+        # extra_kwargs = {"saldo_inicial": {"write_only": True}}
 
     def get_tipo(self, obj):
         return obj.get_tipo_display()
@@ -55,7 +59,7 @@ class ListContaTransacoesSerializer(serializers.ModelSerializer):
     )
     saldo_em_conta = serializers.ReadOnlyField(source="conta.saldo")
     titular = serializers.ReadOnlyField(source="conta.titular")
-    saldo_inicial = serializers.ReadOnlyField(source='conta.saldo')
+    saldo_inicial = serializers.ReadOnlyField(source="conta.saldo")
 
     class Meta:
         model = Transacao
