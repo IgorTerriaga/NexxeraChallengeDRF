@@ -26,7 +26,7 @@ class ContaViewSet(viewsets.ModelViewSet):
         filters.SearchFilter,
     ]
     OrderingFilter = ["titular"]
-    search_fields = ["tiular", "data_abertura"]
+    search_fields = ["titular", "data_abertura"]
     filterset_fields = {"data_abertura": ["gte", "lte", "exact"]}
 
     def destroy(self, request, *args, **kwargs):
@@ -88,7 +88,7 @@ class TransacaoViewSet(viewsets.ModelViewSet):
 
         request.data["saldo_inicial"] = saldo
         if request.data["tipo"] == "D":
-            if saldo > float(request.data["valor"]):
+            if saldo >= float(request.data["valor"]):
                 request.data["saldo_final"] = saldo - float(request.data["valor"])
             else:
                 raise BadRequest("valor maior que o saldo em conta")
