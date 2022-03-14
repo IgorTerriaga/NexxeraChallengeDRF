@@ -4,8 +4,10 @@ from rest_framework import serializers
 def validate_transaction(data):
     """Check data"""
     # global saldo_em_conta
+    print("olha a data...", data)
+    
     # print("--------------", saldo_em_conta)
-    print("--------------", data)
+    
     # aqui precisa testar se for maior que o valor em conta tbm
     if data["tipo"] == "D" and data["valor"]:  # > saldo_em_conta
 
