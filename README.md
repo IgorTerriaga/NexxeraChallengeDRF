@@ -28,6 +28,7 @@ Os recursos são:
 
 O que faltou  que ficaria bacana ter: 
   # Testes unitários
+  # Utlizar a lib decouple para usar o 'config' e esconder as variaveis de ambiente
   # Mais validações de campos
   # Usar um BD na nuvem
   # Remover do input o saldo inicial e final, mesmo não sendo obrigatório/necessário passar.
