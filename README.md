@@ -20,7 +20,7 @@ Para executar o projeto:
 Os recursos são:
 
   # Criar uma conta
-  # Realizer um débito
+  # Realizar um débito
   # Realizar um crédito
   # Exibir extrato (chamei de transacoes)
   # Filtar conta por titular
