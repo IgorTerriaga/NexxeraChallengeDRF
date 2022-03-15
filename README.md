@@ -1,7 +1,7 @@
 # NexxeraChallengeDRF
-Desafio proposto pela empresa Nextera uitlizando Python3 e DRF
+Desafio proposto pela empresa Nexxera uitlizando Python3 e DRF
 
-Neste desafio utilizei o DRF, python3 e o sqlite para facilitar os testes.
+Neste desafio utilizei o DRF, python3 e o banco de dados sqlite para facilitar os testes.
 
 Assista esse pequeno vídeo de 5 min e veja a demonstração:  https://www.loom.com/share/e18c6b1c2782475caa7f2d77061800fa
 
