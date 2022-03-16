@@ -24,6 +24,7 @@ Os recursos são:
   # Realizar um crédito
   # Exibir extrato (chamei de transacoes)
   # Filtar conta por titular
+  # Filtrar por Operação (C ou D)
   # Filtrar transacoes por datas (range)
 
 O que faltou  que ficaria bacana ter: 
